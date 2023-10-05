@@ -17,7 +17,7 @@ contract GreatApeNFT is  ERC721URIStorage, Ownable {
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, jsonStringMetadatari);
+        _setTokenURI(tokenId, buildOnChainURI(jsonStringMetadatari));
     }
 
     
