@@ -33,6 +33,12 @@ describe("GreatApeNFT", () => {
         const balance = await greatApeNFT.balanceOf(owner.address)
         expect(balance.toString()==="1")
     })
+    it("NAO Deve mintar um nft porque nao é o dono",async ()=>{
+        const {greatApeNFT,owner,otherAccount,thirdAccount} = await loadFixture(deployFixture)
+       
+        const instance = await greatApeNFT.connect(otherAccount)
+        await expect( instance.safeMint(owner,JSON.stringify(sampleURI))).to.be.revertedWith("Ownable: caller is not the owner")
+    })
     it("Deve retornar uma URI em base 64 que é convertida para json na funcao tokenURI",async ()=>{
         const {greatApeNFT,owner,otherAccount,thirdAccount} = await loadFixture(deployWithTokenMinted)
         const retrievedURI = await greatApeNFT.tokenURI(1)
