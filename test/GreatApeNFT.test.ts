@@ -25,7 +25,7 @@ describe("GreatApeNFT", () => {
         await greatApeNFT.safeMint(owner,JSON.stringify(sampleURI))
         return {greatApeNFT,owner,otherAccount,thirdAccount}
     }
-    it("Should mint a Token to an Address",async ()=>{
+    it("Deve mintar um nft para um endereço e checar seu saldo",async ()=>{
         const {greatApeNFT,owner,otherAccount,thirdAccount} = await loadFixture(deployFixture)
        
         
@@ -33,12 +33,22 @@ describe("GreatApeNFT", () => {
         const balance = await greatApeNFT.balanceOf(owner.address)
         expect(balance.toString()==="1")
     })
-    it("Should get a valid json URI in the tokenURI function",async ()=>{
+    it("Deve retornar uma URI em base 64 que é convertida para json na funcao tokenURI",async ()=>{
         const {greatApeNFT,owner,otherAccount,thirdAccount} = await loadFixture(deployWithTokenMinted)
         const retrievedURI = await greatApeNFT.tokenURI(1)
-
         const onlyBase64 = retrievedURI.split(",")[1]
         const stringifyedJson = Buffer.from(onlyBase64,"base64").toString()
         expect(stringifyedJson===JSON.stringify(sampleURI))
+    })
+    it("Deve retornar o total de tokens mintados",async ()=>{
+        const {greatApeNFT,owner,otherAccount,thirdAccount} = await loadFixture(deployFixture)
+        await greatApeNFT.safeMint(otherAccount.address,JSON.stringify(sampleURI))
+        await greatApeNFT.safeMint(otherAccount.address,JSON.stringify(sampleURI))
+        await greatApeNFT.safeMint(otherAccount.address,JSON.stringify(sampleURI))
+        await greatApeNFT.safeMint(otherAccount.address,JSON.stringify(sampleURI))
+        //4 mints
+        const totalSupply = await greatApeNFT.totalSupply()
+        
+        expect(totalSupply.toString()==="4")
     })
 });

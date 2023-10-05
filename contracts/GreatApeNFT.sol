@@ -5,7 +5,11 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
-
+/**
+ * @title Great Ape NFT
+ * @author Mateus
+ * @notice Contrato que minta NFTS
+ */
 contract GreatApeNFT is  ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
@@ -13,7 +17,12 @@ contract GreatApeNFT is  ERC721URIStorage, Ownable {
 
     constructor() ERC721("Great Ape NFT", "GNFT") {}
 
-    function safeMint(address to, string calldata jsonStringMetadatari) public onlyOwner {
+    /**
+     * 
+     * @param to endereco do que vai receber o NFT
+     * @param jsonStringMetadatari os metadados do nft que vem no formato JSON.stringyfied do backend
+     */
+    function safeMint(address to, string calldata jsonStringMetadatari) external onlyOwner {
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
@@ -21,9 +30,19 @@ contract GreatApeNFT is  ERC721URIStorage, Ownable {
     }
 
     
+    /**
+     * Encodifica o string em json para uma URI on chain
+     * @param jsonStringMetadata os metadados do nft que vem no formato JSON.stringyfied do backend
+     */
     function buildOnChainURI(string calldata jsonStringMetadata) internal pure returns (string memory){
         return string.concat("data:application/json;base64,",Base64.encode(bytes(jsonStringMetadata)));
     }
 
+    /**
+     * Retorna a quantidade de tokens mintados no contrato
+     */
+    function totalSupply() public view returns(uint256){
+        return _tokenIdCounter.current();
+    }
   
 }
