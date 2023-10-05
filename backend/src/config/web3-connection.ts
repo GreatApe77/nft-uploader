@@ -31,7 +31,7 @@ const networkConfig = {
 const selectedNetwork = networkConfig.fantomTestnet //networkConfig[parameter]  //rede padrao
 const PRIVATE_KEY = `${process.env.PRIVATE_KEY}`;
 const ADMIN_WALLET = process.env.ADMIN_WALLET;
-const MORALIS_API_KEY = process.env.MORALIS_API_KEY;
+
 const GREAT_APE_NFT_CONTRACT_ADDRESS= `${process.env.GREAT_APE_NFT_CONTRACT_ADDRESS}`;
 const provider = new ethers.JsonRpcProvider(selectedNetwork.rpcUrl)
 const wallet = new ethers.Wallet(PRIVATE_KEY,provider)
@@ -41,6 +41,6 @@ const PORT = process.env.PORT ||8080
 export {
     greatApeNFTInstance,
     PORT,
-    MORALIS_API_KEY,
-    
+
+
 }
