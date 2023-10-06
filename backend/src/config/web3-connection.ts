@@ -27,8 +27,8 @@ const networkConfig = {
 		id: 137,
 	},
 };
-//const parameter = process.argv[2] || "fantomTestnet"
-const selectedNetwork = networkConfig.fantomTestnet //networkConfig[parameter]  //rede padrao
+const parameter = process.argv[2] || "fantomTestnet"
+const selectedNetwork = networkConfig["fantomTestnet"] //networkConfig[parameter]  //rede padrao
 const PRIVATE_KEY = `${process.env.PRIVATE_KEY}`;
 const ADMIN_WALLET = process.env.ADMIN_WALLET;
 
