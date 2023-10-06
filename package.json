@@ -5,6 +5,10 @@
   "keywords": [],
   "author": "Mateus",
   "license": "'ISC'",
+  "scripts": {
+    "test":"npx hardhat test",
+    "coverage":"npx hardhat coverage"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "deployment-history": "^1.0.6",
