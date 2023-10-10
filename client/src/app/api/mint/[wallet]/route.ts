@@ -9,14 +9,22 @@ export async function POST(request: Request, context: any) {
     }else if (process.env.NODE_ENV==="production"){
         endpoint = `${process.env.PROD_BACKEND_ENDPOINT}`
     }
-	const res = await fetch(`${endpoint!}/mint/${wallet}`, {
-		method: "POST",
-		body: formData,
-	});
-	const jsonRes = await res.json();
-	return NextResponse.json({
-		status: res.status,
-		data: jsonRes,
-	});
+    try {
+        const res = await fetch(`${endpoint!}/mint/${wallet}`, {
+            method: "POST",
+            body: formData,
+        });
+        const jsonRes = await res.json();
+        return NextResponse.json({
+            status: res.status,
+            data: jsonRes,})
+    } catch (error) {
+        return NextResponse.json({
+            success:false,
+            message:"Servidor de origem nao respondeu"
+        })    
+    }
+	
+	
 	
 }
