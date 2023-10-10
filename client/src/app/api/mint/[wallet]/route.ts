@@ -15,7 +15,6 @@ export async function POST(request: Request, context: any) {
 	});
 	const jsonRes = await res.json();
 	return NextResponse.json({
-		mintedTo: wallet,
 		status: res.status,
 		data: jsonRes,
 	});
