@@ -1,6 +1,5 @@
-import Header from "./components/Header";
-import "./globals.css";
 import type { Metadata } from "next";
+import Header from "./components/Header";
 
 export const metadata: Metadata = {
 	title: "NFT Uploader",
@@ -15,13 +14,8 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<div className="min-h-screen flex-col flex">
-					<Header />
-					{children}
-					<div>
-						<h1>FOOTER</h1>
-					</div>
-				</div>
+				<Header avatarUrl="awd" isAuth key={"qwfwef"}/>
+				<div>{children}</div>
 			</body>
 		</html>
 	);

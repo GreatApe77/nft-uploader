@@ -1,37 +1,34 @@
 "use client";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { postForm } from "./api-calls/postForm";
 import { auth } from "./config/firebase-config";
 import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
-import { setDefaultHighWaterMark } from "stream";
-
 
 export default function Home() {
 	const [name, setName] = useState("");
-	const [isAuth,setIsAuth] = useState(false)
-	const [user,setUser] = useState<User>()
+	const [isAuth, setIsAuth] = useState(false);
+	const [user, setUser] = useState<User>();
 	const [description, setDescription] = useState("");
 	const [wallet, setWallet] = useState("");
 	const [image, setImage] = useState<File>();
 	const [loading, setLoading] = useState(false);
-	useEffect(()=>{
-		auth.onAuthStateChanged((userCred)=>{
-			if(userCred){
-				setIsAuth(true)
-				setUser(userCred)
+	useEffect(() => {
+		auth.onAuthStateChanged((userCred) => {
+			if (userCred) {
+				setIsAuth(true);
+				setUser(userCred);
 			}
-		})
-	},[])
+		});
+	}, []);
 	function loginWithGoogle() {
-
 		signInWithPopup(auth, new GoogleAuthProvider())
 			.then((result) => {
 				console.log(result);
-				setIsAuth(true)
+				setIsAuth(true);
 			})
 			.catch((err) => {
-				console.error(err)
+				console.error(err);
 			});
 	}
 	function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -73,74 +70,54 @@ export default function Home() {
 		});
 	}
 	return (
-		<main className="min-h-full flex flex-grow justify-center items-center ">
-			<div className="flex flex-col p-6 rounded border bg-stone-300 ">
-				<form onSubmit={handleFormSubmit} className="flex flex-col gap-3">
-					<h1 className="text-4xl">Provide the info</h1>
-					<label htmlFor="name">Name</label>
-					<input
-						type="text"
-						name="name"
-						value={name}
-						onChange={handleNameChange}
-						className="p-1 rounded bg-neutral-200"
-						id="name"
-						required
-					/>
-					<label htmlFor="description">description</label>
-					<input
-						type="text"
-						id="description"
-						name="description"
-						value={description}
-						onChange={handleDescriptionChange}
-						className="p-1 rounded bg-neutral-200"
-						required
-					/>
-					<label htmlFor="wallet"> Your public address:</label>
-					<input
-						type="text"
-						id="wallet"
-						className="p-1 rounded bg-neutral-200"
-						value={wallet}
-						onChange={handleWalletChange}
-						required
-					/>
-					<label
-						htmlFor="file"
-						className=" rounded bg-slate-50 flex w-full  items-center"
-					>
-						<div className=" border-solid border-r p-3 bg-zinc-200 border-gray-500 cursor-pointer ">
-							{" "}
-							Image
+		<main>
+			<div className="container col-xl-10 col-xxl-8 px-4 py-5" />
+			<div className="row align-items-center g-lg-5 py-5">
+				<div className="col-lg-7 text-center text-lg-start">
+					<h1 className="display-4 fw-bold lh-1 text-body-emphasis mb-3">
+						Vertically centered hero sign-up form
+					</h1>
+					<p className="col-lg-10 fs-4">
+						Below is an example form built entirely with Bootstrap’s form
+						controls. Each required form group has a validation state that can
+						be triggered by attempting to submit the form without completing it.
+					</p>
+				</div>
+				<div className="col-md-10 mx-auto col-lg-5">
+					<form className="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+						<div className="form-floating mb-3">
+							<input
+								type="email"
+								className="form-control"
+								id="floatingInput"
+								placeholder="name@example.com"
+							/>
+							<label htmlFor="floatingInput">Email address</label>
 						</div>
-						<div className="flex justify-center m-auto">
-							{image?.name ? image.name : "Input your image here"}
+						<div className="form-floating mb-3">
+							<input
+								type="password"
+								className="form-control"
+								id="floatingPassword"
+								placeholder="Password"
+							/>
+							<label htmlFor="floatingPassword">Password</label>
 						</div>
-					</label>
-					<input
-						type="file"
-						onChange={handleFileChange}
-						name="file"
-						id="file"
-						className="hidden"
-						required
-					/>
-					<button
-						type="submit"
-						className={
-							`bg-indigo-800 text-2xl p-2 rounded text-white hover:bg-indigo-600 transition-all ` +
-							`${loading ? "bg-indigo-400" : ""}`
-						}
-						disabled={loading}
-					>
-						{loading ? "Minting..." : "Mint"}
-					</button>
-				</form>
+						<div className="checkbox mb-3">
+							<label>
+								<input type="checkbox" value="remember-me" /> Remember me
+							</label>
+						</div>
+						<button className="w-100 btn btn-lg btn-primary" type="submit">
+							Sign up
+						</button>
+						<hr className="my-4" />
+						<small className="text-body-secondary">
+							By clicking Sign up, you agree to the terms of use.
+						</small>
+					</form>
+				</div>
 			</div>
-			<button className="p-2 bg-slate-400" onClick={loginWithGoogle}>
-				Login With Google
-			</button>
 		</main>
 	);
 }
