@@ -3,14 +3,31 @@
 import React, { useState } from "react";
 import { postForm } from "./api-calls/postForm";
 
+
+import {  auth} from "./config/firebase-config"
+
+
+import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
+
+
+
+
+
 export default function Home() {
 	const [name, setName] = useState("");
 
 	const [description, setDescription] = useState("");
 	const [wallet, setWallet] = useState("");
 	const [image, setImage] = useState<File>();
-  const [loading,setLoading] = useState(false)
-  
+  	const [loading,setLoading] = useState(false)
+	console.log(GoogleAuthProvider)
+	function loginWithGoogle(){
+		signInWithPopup(auth,new GoogleAuthProvider()).then((result) => {
+			console.log(result)
+		}).catch((err) => {
+			
+		});
+	}
 	function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setName(e.target.value);
 	}
@@ -110,6 +127,7 @@ export default function Home() {
 					</button>
 				</form>
 			</div>
+			<button className="p-2 bg-slate-400" onClick={loginWithGoogle}>Login With Google</button>
 		</main>
 	);
 }
