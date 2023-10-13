@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//fique a vontade pra roubar esses dados kkkkk
 const firebaseConfig = {
   apiKey: "AIzaSyCn-xMwpFwrTPxei6ogcMybsCkMIgUxx7E",
   authDomain: "nft-uploader-43773.firebaseapp.com",
