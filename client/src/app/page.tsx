@@ -1,32 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { postForm } from "./api-calls/postForm";
-
-
-import {  auth} from "./config/firebase-config"
-
-
-import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
-
-
-
+import { auth } from "./config/firebase-config";
+import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
+import { setDefaultHighWaterMark } from "stream";
 
 
 export default function Home() {
 	const [name, setName] = useState("");
-
+	const [isAuth,setIsAuth] = useState(false)
+	const [user,setUser] = useState<User>()
 	const [description, setDescription] = useState("");
 	const [wallet, setWallet] = useState("");
 	const [image, setImage] = useState<File>();
-  	const [loading,setLoading] = useState(false)
-	console.log(GoogleAuthProvider)
-	function loginWithGoogle(){
-		signInWithPopup(auth,new GoogleAuthProvider()).then((result) => {
-			console.log(result)
-		}).catch((err) => {
-			
-		});
+	const [loading, setLoading] = useState(false);
+	useEffect(()=>{
+		auth.onAuthStateChanged((userCred)=>{
+			if(userCred){
+				setIsAuth(true)
+				setUser(userCred)
+			}
+		})
+	},[])
+	function loginWithGoogle() {
+
+		signInWithPopup(auth, new GoogleAuthProvider())
+			.then((result) => {
+				console.log(result);
+				setIsAuth(true)
+			})
+			.catch((err) => {
+				console.error(err)
+			});
 	}
 	function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setName(e.target.value);
@@ -43,26 +49,28 @@ export default function Home() {
 
 	function handleFormSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault();
-    setLoading(true)
-    postForm({name,description,image:image!},wallet)
-    .then((result) => {
-      alert(result.status)
-    }).catch((err) => {
-      alert("Something wrong with the origin server")
-    }).finally(()=>{
-      setLoading(false)
-      setDescription("")
-      setImage(undefined)
-      setName("")
-      setWallet("")
-    })
-    
+		setLoading(true);
+		postForm({ name, description, image: image! }, wallet)
+			.then((result) => {
+				alert(result.status);
+			})
+			.catch((err) => {
+				alert("Something wrong with the origin server");
+			})
+			.finally(() => {
+				setLoading(false);
+				setDescription("");
+				setImage(undefined);
+				setName("");
+				setWallet("");
+			});
+
 		console.log({
 			name,
 			description,
 			image,
 			wallet,
-		})
+		});
 	}
 	return (
 		<main className="min-h-full flex flex-grow justify-center items-center ">
@@ -77,7 +85,7 @@ export default function Home() {
 						onChange={handleNameChange}
 						className="p-1 rounded bg-neutral-200"
 						id="name"
-            required
+						required
 					/>
 					<label htmlFor="description">description</label>
 					<input
@@ -87,8 +95,8 @@ export default function Home() {
 						value={description}
 						onChange={handleDescriptionChange}
 						className="p-1 rounded bg-neutral-200"
-            required
-          />
+						required
+					/>
 					<label htmlFor="wallet"> Your public address:</label>
 					<input
 						type="text"
@@ -96,8 +104,8 @@ export default function Home() {
 						className="p-1 rounded bg-neutral-200"
 						value={wallet}
 						onChange={handleWalletChange}
-            required
-          />
+						required
+					/>
 					<label
 						htmlFor="file"
 						className=" rounded bg-slate-50 flex w-full  items-center"
@@ -116,18 +124,23 @@ export default function Home() {
 						name="file"
 						id="file"
 						className="hidden"
-            required
+						required
 					/>
 					<button
 						type="submit"
-						className={`bg-indigo-800 text-2xl p-2 rounded text-white hover:bg-indigo-600 transition-all `+`${loading?("bg-indigo-400"):("")}`}
-            disabled={loading}
-          >
-						{loading?("Minting..."):("Mint")}
+						className={
+							`bg-indigo-800 text-2xl p-2 rounded text-white hover:bg-indigo-600 transition-all ` +
+							`${loading ? "bg-indigo-400" : ""}`
+						}
+						disabled={loading}
+					>
+						{loading ? "Minting..." : "Mint"}
 					</button>
 				</form>
 			</div>
-			<button className="p-2 bg-slate-400" onClick={loginWithGoogle}>Login With Google</button>
+			<button className="p-2 bg-slate-400" onClick={loginWithGoogle}>
+				Login With Google
+			</button>
 		</main>
 	);
 }

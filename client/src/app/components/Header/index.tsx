@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
-export default function Header() {
+export type HeaderProps ={
+	isAuth:boolean,
+	avatarUrl:string
+}
+export default function Header({isAuth,avatarUrl}:HeaderProps) {
 	return (
 		<header className="flex justify-between items-center bg-gray-900 p-4 flex-wrap max-md:flex-col ">
 			<img className="w-28 " src="/great-ape-psn.png" alt="" />
@@ -19,7 +23,11 @@ export default function Header() {
 			</div>
 
 			<div>
-				<button className="bg-slate-300">Connect Wallet</button>
+				{true?(<>
+				<img src={avatarUrl} alt="Avatar url" className="rounded-full w-20" />
+				</>):(<>
+				<button className="text-green-400 text-2xl p-2 rounded  border-2 border-green-400 hover:bg-green-400 hover:text-gray-900 transition-all">Log in With Google</button>
+				</>)}
 			</div>
 		</header>
 	);

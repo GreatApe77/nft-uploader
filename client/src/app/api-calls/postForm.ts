@@ -11,11 +11,16 @@ export async function postForm(formData:FormDataNFT,wallet:string){
     bodyFormData.append("description",formData.description)
     bodyFormData.append("file",formData.image)
 
-    const res = await fetch(`/api/mint/${wallet}`,{
-        method:"POST",
-        body:bodyFormData
-    })
-    const status = res.status
-    const responseData = await res.json()
-    return {status,responseData}
+    try {
+        
+        const res = await fetch(`/api/mint/${wallet}`,{
+            method:"POST",
+            body:bodyFormData
+        })
+        const status = res.status
+        const responseData = await res.json()
+        return {status,responseData}
+    } catch (error) {
+        throw new Error("Error in in posting form")
+    }
 }
