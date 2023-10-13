@@ -1,10 +1,14 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-toastify/dist/ReactToastify.css';
+
 import React, { useEffect, useState } from "react";
-import { postForm } from "./api-calls/postForm";
+import { TransactionResponse as TxResponse, postForm } from "./api-calls/postForm";
+import TransactionResponse from "./components/TransactionResponse";
 import { auth } from "./config/firebase-config";
 import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
 import Spinner from "react-bootstrap/Spinner";
+import { ToastContainer,toast } from "react-toastify";
 export default function Home() {
 	const [name, setName] = useState("");
 	const [isAuth, setIsAuth] = useState(false);
@@ -13,6 +17,7 @@ export default function Home() {
 	const [wallet, setWallet] = useState("");
 	const [image, setImage] = useState<File>();
 	const [loading, setLoading] = useState(false);
+	const [transactionResponse,setTransactionresponse] = useState<TxResponse>()
 	useEffect(() => {
 		auth.onAuthStateChanged((userCred) => {
 			if (userCred) {
@@ -49,10 +54,34 @@ export default function Home() {
 		setLoading(true);
 		postForm({ name, description, image: image! }, wallet)
 			.then((result) => {
-				alert(result.status);
+				if(result.status===200){
+					toast.success("NFT Criado com Sucesso!",{
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					})
+					setTransactionresponse(result)
+				}else{
+					toast.error("Ocorreu algum erro")
+				}
 			})
 			.catch((err) => {
-				alert("Something wrong with the origin server");
+				console.error(err)
+				toast.warning("Não estou conseguindo chamar o servidor!",{
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+				})
 			})
 			.finally(() => {
 				setLoading(false);
@@ -88,7 +117,10 @@ export default function Home() {
 					</p>
 				</div>
 				<div className="col-md-10 mx-auto col-lg-5">
-					<form onSubmit={handleFormSubmit} className="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+					<form
+						onSubmit={handleFormSubmit}
+						className="p-4 p-md-5 border rounded-3 bg-body-tertiary"
+					>
 						<div className="form-floating mb-2">
 							<input
 								type="text"
@@ -134,21 +166,36 @@ export default function Home() {
 								placeholder=""
 								aria-describedby="fileHelpId"
 								onChange={handleFileChange}
-								
 								required
 							/>
 						</div>
 
-						<button className="w-100 btn btn-lg btn-primary" disabled={loading} type="submit">
+						<button
+							className="w-100 btn btn-lg btn-primary"
+							disabled={loading}
+							type="submit"
+						>
 							{loading ? <Spinner /> : "Mintar NFT"}
 						</button>
 						<hr className="my-4" />
 						<small className="text-body-secondary">
-							By clicking Sign up, you agree to the terms of use.
+							{transactionResponse?.status===200?(<TransactionResponse status={transactionResponse.status} responseData={transactionResponse.responseData}/>):("Sua Transação aparecerá aqui!")}
 						</small>
 					</form>
 				</div>
 			</div>
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/>
 		</main>
 	);
 }

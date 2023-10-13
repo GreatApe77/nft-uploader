@@ -4,7 +4,12 @@ export type FormDataNFT={
     description:string
     image:File
 }
-
+export type TransactionResponse={
+    status:Number
+    responseData:{
+        transactionHash:string
+    }
+}
 export async function postForm(formData:FormDataNFT,wallet:string){
     const bodyFormData= new FormData()
     bodyFormData.append("name",formData.name)
@@ -19,7 +24,7 @@ export async function postForm(formData:FormDataNFT,wallet:string){
         })
         const status = res.status
         const responseData = await res.json()
-        return {status,responseData}
+        return {status,responseData}as TransactionResponse
     } catch (error) {
         throw new Error("Error in in posting form")
     }
