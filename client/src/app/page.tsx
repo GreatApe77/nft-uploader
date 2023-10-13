@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { postForm } from "./api-calls/postForm";
 import { auth } from "./config/firebase-config";
 import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
-
+import Spinner from "react-bootstrap/Spinner";
 export default function Home() {
 	const [name, setName] = useState("");
 	const [isAuth, setIsAuth] = useState(false);
@@ -70,46 +70,77 @@ export default function Home() {
 		});
 	}
 	return (
-		<main>
+		<main className="p-5">
 			<div className="container col-xl-10 col-xxl-8 px-4 py-5" />
 			<div className="row align-items-center g-lg-5 py-5">
 				<div className="col-lg-7 text-center text-lg-start">
 					<h1 className="display-4 fw-bold lh-1 text-body-emphasis mb-3">
-						Vertically centered hero sign-up form
+						Crie NFTS!
 					</h1>
 					<p className="col-lg-10 fs-4">
-						Below is an example form built entirely with Bootstrap’s form
-						controls. Each required form group has a validation state that can
-						be triggered by attempting to submit the form without completing it.
+						Digite as informçoes ao lado para realizar Criar um NFT com uma foto
+						de sua escolha
+					</p>
+					<p className="col-lg-10 fs-4">
+						<button type="button" className="btn btn-outline-success">
+							Login com Google
+						</button>
 					</p>
 				</div>
 				<div className="col-md-10 mx-auto col-lg-5">
-					<form className="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-						<div className="form-floating mb-3">
+					<form onSubmit={handleFormSubmit} className="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+						<div className="form-floating mb-2">
 							<input
-								type="email"
+								type="text"
 								className="form-control"
 								id="floatingInput"
-								placeholder="name@example.com"
+								value={name}
+								onChange={handleNameChange}
+								required
 							/>
-							<label htmlFor="floatingInput">Email address</label>
+							<label htmlFor="floatingInput">The name of your NFT</label>
 						</div>
-						<div className="form-floating mb-3">
+						<div className="form-floating mb-2">
 							<input
-								type="password"
+								type="text"
 								className="form-control"
-								id="floatingPassword"
-								placeholder="Password"
+								id="floatingInput"
+								value={description}
+								onChange={handleDescriptionChange}
+								required
 							/>
-							<label htmlFor="floatingPassword">Password</label>
+							<label htmlFor="floatingInput">Small Description</label>
 						</div>
-						<div className="checkbox mb-3">
-							<label>
-								<input type="checkbox" value="remember-me" /> Remember me
+						<div className="form-floating mb-2">
+							<input
+								type="text"
+								className="form-control"
+								id="floatingInput"
+								value={wallet}
+								onChange={handleWalletChange}
+								required
+							/>
+							<label htmlFor="floatingInput">Your Wallet Address</label>
+						</div>
+						<div className="mb-3">
+							<label htmlFor="" className="form-label">
+								Escolha a Imagem!
 							</label>
+							<input
+								type="file"
+								className="form-control"
+								name=""
+								id=""
+								placeholder=""
+								aria-describedby="fileHelpId"
+								onChange={handleFileChange}
+								
+								required
+							/>
 						</div>
-						<button className="w-100 btn btn-lg btn-primary" type="submit">
-							Sign up
+
+						<button className="w-100 btn btn-lg btn-primary" disabled={loading} type="submit">
+							{loading ? <Spinner /> : "Mintar NFT"}
 						</button>
 						<hr className="my-4" />
 						<small className="text-body-secondary">
