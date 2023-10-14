@@ -5,8 +5,8 @@ import { validateToken } from "../middleware/firebase-auth";
 
 const router = express.Router()
 const upload = multer()
-router.use(validateToken)
-router.post("/mint/:address",upload.single("file"),mint)
+
+router.post("/mint/:wallet",validateToken,upload.single("file"),mint)
 
 export  {
     router

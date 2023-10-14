@@ -9,7 +9,7 @@ import uploadIPFS from '../moralis-services/uploadIPFS'
  */
 const mint = async (req:Request,res:Response)=>{
     console.log("Caiu")
-    const to = req.params.address
+    const to = req.params.wallet
     const file = req.file
     const {name,description} = req.body
     if(!file || !name || !description || !to){
