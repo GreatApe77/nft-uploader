@@ -7,7 +7,10 @@ export type FormDataNFT={
 export type TransactionResponse={
     status:Number
     responseData:{
-        transactionHash:string
+        data:{
+            transactionHash:string
+
+        }
     }
 }
 export async function postForm(formData:FormDataNFT,wallet:string){

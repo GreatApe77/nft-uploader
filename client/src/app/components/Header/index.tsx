@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+
 export type HeaderProps = {
 	isAuth: boolean;
 	avatarUrl: string;
@@ -75,7 +75,7 @@ export default function Header({ isAuth, avatarUrl }: HeaderProps) {
 							aria-expanded="false"
 						>
 							<img
-								src="https://github.com/mdo.png"
+								src="/great-ape-psn.png"
 								alt="mdo"
 								width="32"
 								height="32"

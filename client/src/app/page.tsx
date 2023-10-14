@@ -11,6 +11,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { ToastContainer,toast } from "react-toastify";
 export default function Home() {
 	const [name, setName] = useState("");
+	const [authLoading,setAuthLoading] = useState(false)
 	const [isAuth, setIsAuth] = useState(false);
 	const [user, setUser] = useState<User>();
 	const [description, setDescription] = useState("");
@@ -27,6 +28,7 @@ export default function Home() {
 		});
 	}, []);
 	function loginWithGoogle() {
+		setAuthLoading(true)
 		signInWithPopup(auth, new GoogleAuthProvider())
 			.then((result) => {
 				console.log(result);
@@ -34,7 +36,9 @@ export default function Home() {
 			})
 			.catch((err) => {
 				console.error(err);
-			});
+			}).finally(()=>{
+				setAuthLoading(false)
+			})
 	}
 	function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setName(e.target.value);
@@ -111,8 +115,8 @@ export default function Home() {
 						de sua escolha
 					</p>
 					<p className="col-lg-10 fs-4">
-						<button type="button" className="btn btn-outline-success">
-							Login com Google
+						<button onClick={loginWithGoogle} disabled={authLoading} type="button" className="btn btn-outline-success">
+							{authLoading?(<Spinner/>):("Login with Google")}
 						</button>
 					</p>
 				</div>
