@@ -3,15 +3,16 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request, context: any) {
 	const wallet = context.params.wallet;
-	
+	console.log("CHAMOU")
+    console.log(request.body)
     let endpoint:string
     if(process.env.NODE_ENV==="development"){
         endpoint = `${process.env.DEV_BACKEND_ENDPOINT}`
     }else if (process.env.NODE_ENV==="production"){
         endpoint = `${process.env.PROD_BACKEND_ENDPOINT}`
     }
-    
-        
+    const formData = await request.formData()
+    console.log(formData)
     try {
         const axiosConfig: AxiosRequestConfig = {
             headers: Object.fromEntries(request.headers), // Convert Headers to an object

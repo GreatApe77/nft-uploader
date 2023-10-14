@@ -1,9 +1,9 @@
 import { admin } from "../config/firebase-config";
 import { Request,Response,NextFunction } from "express";
-export async function validateToken(req:Request,res:Response,next:NextFunction){
-
+ async function validateToken(req:Request,res:Response,next:NextFunction){
+    console.log(req.body)
     const token = `${req.headers.authorization?.split(" ")[1]}`
-    console.log(token)
+    //console.log(token)
     try {
         const decodeValue = await  admin.auth().verifyIdToken(token)
         if(decodeValue){
@@ -24,4 +24,8 @@ export async function validateToken(req:Request,res:Response,next:NextFunction){
         })
     }   
 
+}
+
+export {
+    validateToken
 }
