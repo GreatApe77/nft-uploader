@@ -1,24 +1,29 @@
+import axios,{AxiosRequestConfig} from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request, context: any) {
 	const wallet = context.params.wallet;
-	const formData = await request.formData();
+	
     let endpoint:string
     if(process.env.NODE_ENV==="development"){
         endpoint = `${process.env.DEV_BACKEND_ENDPOINT}`
     }else if (process.env.NODE_ENV==="production"){
         endpoint = `${process.env.PROD_BACKEND_ENDPOINT}`
     }
+    
+        
     try {
-        const res = await fetch(`${endpoint!}/mint/${wallet}`, {
-            headers: request.headers,
-            method: "POST",
-            body: formData,
-        });
-        const jsonRes = await res.json();
+        const axiosConfig: AxiosRequestConfig = {
+            headers: Object.fromEntries(request.headers), // Convert Headers to an object
+        };
+
+        //`${endpoint!}/mint/${wallet}`
+        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,request.body,axiosConfig);
+
         return NextResponse.json({
-            status: res.status,
-            data: jsonRes,})
+            status: axiosResponse.status,
+            data: axiosResponse.data,
+        });
     } catch (error) {
         console.error(error)
         return NextResponse.json({

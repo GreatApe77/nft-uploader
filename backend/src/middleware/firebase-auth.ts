@@ -7,7 +7,9 @@ export async function validateToken(req:Request,res:Response,next:NextFunction){
     try {
         const decodeValue = await  admin.auth().verifyIdToken(token)
         if(decodeValue){
-            return next()
+            console.log(decodeValue)
+             next()
+            
         }
         return res.status(401).json({
             success:false,
