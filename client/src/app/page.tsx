@@ -12,7 +12,7 @@ import { ToastContainer,toast } from "react-toastify";
 export default function Home() {
 	const [name, setName] = useState("");
 	const [authLoading,setAuthLoading] = useState(false)
-	const [isAuth, setIsAuth] = useState(false);
+
 	const [user, setUser] = useState<User>();
 	const [description, setDescription] = useState("");
 	const [wallet, setWallet] = useState("");
@@ -22,7 +22,7 @@ export default function Home() {
 	useEffect(() => {
 		auth.onAuthStateChanged((userCred) => {
 			if (userCred) {
-				setIsAuth(true);
+				
 				setUser(userCred);
 			}
 		});
@@ -32,7 +32,7 @@ export default function Home() {
 		signInWithPopup(auth, new GoogleAuthProvider())
 			.then((result) => {
 				console.log(result);
-				setIsAuth(true);
+				
 			})
 			.catch((err) => {
 				console.error(err);
@@ -56,7 +56,7 @@ export default function Home() {
 	function handleFormSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setLoading(true);
-		postForm({ name, description, image: image! }, wallet)
+		postForm({ name, description, image: image! }, wallet,user)
 			.then((result) => {
 				if(result.status===200){
 					toast.success("NFT Criado com Sucesso!",{
@@ -162,14 +162,14 @@ export default function Home() {
 							<label htmlFor="floatingInput">Seu endereço de carteira ethereum</label>
 						</div>
 						<div className="mb-3">
-							<label htmlFor="" className="form-label">
+							<label htmlFor="image" className="form-label">
 								Escolha a Imagem!
 							</label>
 							<input
 								type="file"
 								className="form-control"
 								name=""
-								id=""
+								id="image"
 								placeholder=""
 								aria-describedby="fileHelpId"
 								onChange={handleFileChange}

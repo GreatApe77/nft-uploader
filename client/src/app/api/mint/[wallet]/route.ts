@@ -11,6 +11,7 @@ export async function POST(request: Request, context: any) {
     }
     try {
         const res = await fetch(`${endpoint!}/mint/${wallet}`, {
+            headers: request.headers,
             method: "POST",
             body: formData,
         });
@@ -19,6 +20,7 @@ export async function POST(request: Request, context: any) {
             status: res.status,
             data: jsonRes,})
     } catch (error) {
+        console.error(error)
         return NextResponse.json({
             success:false,
             message:"Servidor de origem nao respondeu"

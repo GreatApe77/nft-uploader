@@ -7,7 +7,7 @@ export default function TransactionResponse({
 		<div>
 			<h2>Acompanhe sua transação no link abaixo</h2>
 			<a
-				href={`https://testnet.ftmscan.com/tx/${responseData.data.transactionHash}`}
+				href={`https://testnet.ftmscan.com/tx/${responseData?.data?.transactionHash?(responseData.data.transactionHash):("")}`}
 			target="_blank"
 
       >
