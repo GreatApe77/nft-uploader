@@ -137,7 +137,7 @@ export default function Home() {
 								onChange={handleNameChange}
 								required
 							/>
-							<label htmlFor="floatingInput">The name of your NFT</label>
+							<label htmlFor="floatingInput">O nome que você deseja</label>
 						</div>
 						<div className="form-floating mb-2">
 							<input
@@ -148,7 +148,7 @@ export default function Home() {
 								onChange={handleDescriptionChange}
 								required
 							/>
-							<label htmlFor="floatingInput">Small Description</label>
+							<label htmlFor="floatingInput">Uma pequena descrição</label>
 						</div>
 						<div className="form-floating mb-2">
 							<input
@@ -159,7 +159,7 @@ export default function Home() {
 								onChange={handleWalletChange}
 								required
 							/>
-							<label htmlFor="floatingInput">Your Wallet Address</label>
+							<label htmlFor="floatingInput">Seu endereço de carteira ethereum</label>
 						</div>
 						<div className="mb-3">
 							<label htmlFor="" className="form-label">
