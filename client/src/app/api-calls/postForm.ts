@@ -35,9 +35,10 @@ export async function postForm(formData:FormDataNFT,wallet:string,user:User| und
             },
             body:bodyFormData
         })
-        const status = res.status
         const responseData = await res.json()
-        return {status,responseData}as TransactionResponse
+        return {
+            status:responseData.status,
+            responseData:responseData.data}as TransactionResponse
     } catch (error) {
         throw new Error("Error in in posting form")
     }
