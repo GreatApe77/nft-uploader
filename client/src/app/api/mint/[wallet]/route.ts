@@ -19,7 +19,7 @@ export async function POST(request: Request, context: any) {
         };
 
         //`${endpoint!}/mint/${wallet}`
-        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,request.body,axiosConfig);
+        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,axiosConfig);
 
         return NextResponse.json({
             status: axiosResponse.status,
