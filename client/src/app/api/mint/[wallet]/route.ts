@@ -6,11 +6,12 @@ export async function POST(request: Request, context: any) {
 	console.log("CHAMOU")
     console.log(request.body)
     let endpoint:string
-    if(process.env.NODE_ENV==="development"){
+    if(process.env.ENVIROMENT==="dev"){
         endpoint = `${process.env.DEV_BACKEND_ENDPOINT}`
-    }else if (process.env.NODE_ENV==="production"){
+    }else if (process.env.ENVIROMENT==="prod"){
         endpoint = `${process.env.PROD_BACKEND_ENDPOINT}`
     }
+    console.log(endpoint!)
     const formData = await request.formData()
     console.log(formData)
     try {
