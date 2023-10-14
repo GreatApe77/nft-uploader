@@ -119,6 +119,9 @@ export default function Home() {
 							{authLoading?(<Spinner/>):("Login with Google")}
 						</button>
 					</p>
+					{user?.displayName?(<p className="col-lg-10 fs-4">
+						Bem vindo(a) {user.displayName} !
+					</p>):(<></>)}
 				</div>
 				<div className="col-md-10 mx-auto col-lg-5">
 					<form
@@ -200,6 +203,7 @@ export default function Home() {
 				pauseOnHover
 				theme="light"
 			/>
+
 		</main>
 	);
 }
