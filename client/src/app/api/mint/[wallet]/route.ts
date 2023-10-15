@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import fetch from "node-fetch";
 
+ 
 export async function POST(request: Request, context: any) {
 	const wallet = context.params.wallet;
 	console.log("CHAMOU")
@@ -16,16 +17,16 @@ export async function POST(request: Request, context: any) {
     const formData = await request.formData()
     console.log(formData)
     try {
-       // const axiosConfig: AxiosRequestConfig = {
-        //   headers: Object.fromEntries(request.headers), 
-         //   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        const axiosConfig: AxiosRequestConfig = {
+          headers: Object.fromEntries(request.headers), 
+           httpsAgent: new https.Agent({ rejectUnauthorized: false }),
 //
-        //};
+        };
 
         //`${endpoint!}/mint/${wallet}`
-        //const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,axiosConfig);
+        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,axiosConfig);
         //request.headers.set("Content-Length", formData.length);
-
+        console.log(endpoint!)
         const res = await fetch(`${endpoint!}/mint/${wallet}`,{
             method:"POST",
             headers:request.headers,
