@@ -1,6 +1,7 @@
 import axios,{AxiosRequestConfig} from "axios";
 import { NextResponse } from "next/server";
-
+//https://www.npmjs.com/package/ssl-root-cas
+//https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs
 export async function POST(request: Request, context: any) {
 	const wallet = context.params.wallet;
 	console.log("CHAMOU")
