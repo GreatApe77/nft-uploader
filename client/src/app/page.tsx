@@ -69,6 +69,7 @@ export default function Home() {
 					progress: undefined,
 					theme: "light",
 					})
+					console.log(result)
 					setTransactionresponse(result)
 				}else{
 					toast.error("Ocorreu algum erro")
@@ -186,7 +187,7 @@ export default function Home() {
 						</button>
 						<hr className="my-4" />
 						<small className="text-body-secondary">
-							{transactionResponse?.status===200?(<TransactionResponse status={transactionResponse.status} responseData={transactionResponse.responseData}/>):("Sua Transação aparecerá aqui!")}
+							{transactionResponse?.status===200?(<TransactionResponse status={transactionResponse.status} data={transactionResponse.data}/>):("Sua Transação aparecerá aqui!")}
 						</small>
 					</form>
 				</div>

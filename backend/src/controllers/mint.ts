@@ -36,6 +36,7 @@ const mint = async (req:Request,res:Response)=>{
             image:imageUrl
         }
         const response = await greatApeNFTInstance.safeMint(to,JSON.stringify(metadata))
+        console.log(response.hash)
         return res.status(200).json({
             success:true,
             transactionHash:response.hash

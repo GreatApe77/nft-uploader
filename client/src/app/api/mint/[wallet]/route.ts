@@ -19,9 +19,13 @@ export async function POST(request: Request, context: any) {
         const axiosConfig: AxiosRequestConfig = {
             headers: Object.fromEntries(request.headers), // Convert Headers to an object
         };
-
+        const authorization = request.headers.get("Authorization")
         //`${endpoint!}/mint/${wallet}`
-        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,axiosConfig);
+        const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,{
+            headers:{
+                Authorization: authorization
+            }
+        });
 
         return NextResponse.json({
             status: axiosResponse.status,
