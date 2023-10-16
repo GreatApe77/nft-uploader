@@ -18,7 +18,7 @@ contract GreatApeNFT is  ERC721URIStorage, Ownable {
     constructor() ERC721("Great Ape NFT", "GNFT") {}
 
     /**
-     * 
+     * Minta um nft para um endereço 
      * @param to endereco do que vai receber o NFT
      * @param jsonStringMetadatari os metadados do nft que vem no formato JSON.stringyfied do backend
      */
@@ -33,13 +33,14 @@ contract GreatApeNFT is  ERC721URIStorage, Ownable {
     /**
      * Encodifica o string em json para uma URI on chain
      * @param jsonStringMetadata os metadados do nft que vem no formato JSON.stringyfied do backend
+     * @return string Retorna a string base concatenado com o Base64 do JSON
      */
     function buildOnChainURI(string calldata jsonStringMetadata) internal pure returns (string memory){
         return string.concat("data:application/json;base64,",Base64.encode(bytes(jsonStringMetadata)));
     }
 
     /**
-     * Retorna a quantidade de tokens mintados no contrato
+     * @return Retorna a quantidade de tokens mintados no contrato
      */
     function totalSupply() public view returns(uint256){
         return _tokenIdCounter.current();
