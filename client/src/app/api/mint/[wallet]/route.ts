@@ -1,4 +1,4 @@
-import axios,{AxiosRequestConfig} from "axios";
+import axios from "axios";
 import { NextResponse } from "next/server";
 //https://www.npmjs.com/package/ssl-root-cas
 //https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs
@@ -16,9 +16,7 @@ export async function POST(request: Request, context: any) {
     const formData = await request.formData()
     console.log(formData)
     try {
-        const axiosConfig: AxiosRequestConfig = {
-            headers: Object.fromEntries(request.headers), // Convert Headers to an object
-        };
+       
         const authorization = request.headers.get("Authorization")
         //`${endpoint!}/mint/${wallet}`
         const axiosResponse = await axios.post(`${endpoint!}/mint/${wallet}`,formData,{
