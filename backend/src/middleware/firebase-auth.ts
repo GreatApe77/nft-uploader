@@ -20,7 +20,7 @@ import { Request,Response,NextFunction } from "express";
         console.error(error)
         return res.status(500).json({
             success:false,
-            message:"Error in validating token"
+            message:"Error in validating token You could have not passed a valid JWT token fo be authenticated"
         })
     }   
 
