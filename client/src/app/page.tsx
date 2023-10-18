@@ -63,7 +63,7 @@ export default function Home() {
 	function handleFormSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setLoading(true);
-		postForm({ name, description, image: image! }, wallet, user)
+		postForm({ name, description, image: image! }, account?(account):(wallet), user)
 			.then((result) => {
 				if (result.status === 200) {
 					toast.success("NFT Criado com Sucesso!", {
