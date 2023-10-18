@@ -1,9 +1,7 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
-interface Window{
-	ethereum:any
-}
+
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import {
@@ -26,15 +24,17 @@ export default function Home() {
 	const [image, setImage] = useState<File>();
 	const [loading, setLoading] = useState(false);
 	const [transactionResponse, setTransactionresponse] = useState<TxResponse>();
-	const { isWeb3Enabled,enableWeb3 } = useMoralis();
-	const { account } = useMoralis();
+	
+	
 	useEffect(() => {
 		auth.onAuthStateChanged((userCred) => {
 			if (userCred) {
 				setUser(userCred);
 			}
 		});
+		
 	}, []);
+	
 	function loginWithGoogle() {
 		setAuthLoading(true);
 		signInWithPopup(auth, new GoogleAuthProvider())
@@ -139,8 +139,8 @@ export default function Home() {
 						</p>
 					)}
 					
-					{window?.ethereum! ? <p className="col-lg-10 fs-4">
-						<button type="button" className="btn btn-secondary">Connect Wallet</button>
+					{ethereum! ? <p className="col-lg-10 fs-4">
+						
 					</p> : <></>}
 				</div>
 				<div className="col-md-10 mx-auto col-lg-5">
