@@ -18,7 +18,7 @@ export default function RootLayout({
 				
 			</head>
 			<body>
-				<Header avatarUrl="awd" isAuth key={"qwfwef"}/>
+				<Header />
 				<ThirdwebProvider >
 
 				<div>{children}</div>

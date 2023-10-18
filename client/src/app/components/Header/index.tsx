@@ -1,10 +1,7 @@
 import React from "react";
 
-export type HeaderProps = {
-	isAuth: boolean;
-	avatarUrl: string;
-};
-export default function Header({ isAuth, avatarUrl }: HeaderProps) {
+
+export default function Header() {
 	return (
 		<header className="py-3 mb-3 border-bottom">
 			<div
