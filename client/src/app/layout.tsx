@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "./components/Header";
+import MoralisProviderComponent from "./MoralisProviderComponent";
 
 export const metadata: Metadata = {
 	title: "NFT Uploader",
@@ -19,7 +20,10 @@ export default function RootLayout({
 			</head>
 			<body>
 				<Header avatarUrl="awd" isAuth key={"qwfwef"}/>
+				<MoralisProviderComponent>
+
 				<div>{children}</div>
+				</MoralisProviderComponent>
 			</body>
 		</html>
 	);
