@@ -1,12 +1,5 @@
-"use client"
-import React from 'react'
-import { MoralisProvider } from 'react-moralis'
-export default function MoralisProviderComponent({children}:{children: React.ReactNode}) {
-  return (
-    <>
-    <MoralisProvider initializeOnMount={false} >
-    {children}
-    </MoralisProvider>
-    </>
-  )
-}
+"use client";
+
+export { ThirdwebProvider } from "@thirdweb-dev/react";
+
+// app/components/ThirdwebProvider.tsx
