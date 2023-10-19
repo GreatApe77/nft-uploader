@@ -35,7 +35,7 @@ export default function Header() {
 							</Link>
 							{account ? (
 								<>
-									<Link className="nav-link" href="/my-nfts">
+									<Link prefetch={false} className="nav-link" href="/my-nfts">
 										Seus NFTS
 									</Link>
 								</>
