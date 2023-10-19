@@ -17,6 +17,7 @@ export default function RootLayout({
 				<link rel="shortcut icon" href="/great-ape-psn.png" type="image/x-icon" />
 				
 			</head>
+			
 			<body>
 				<ThirdwebProvider  >
 				<Header  />

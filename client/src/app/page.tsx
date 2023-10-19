@@ -24,6 +24,7 @@ export default function Home() {
 	const [wallet, setWallet] = useState("");
 	const [image, setImage] = useState<File>();
 	const [loading, setLoading] = useState(false);
+	const [validCondition,setValidCondition] = useState(false)
 	const [transactionResponse, setTransactionresponse] = useState<TxResponse>();
 	const account = useAddress();
 	useEffect(() => {
@@ -33,6 +34,14 @@ export default function Home() {
 			}
 		});
 	}, []);
+	useEffect(() => {
+		// Use this useEffect to run code that should only execute on the client side.
+		if (typeof window !== "undefined") {
+			if (window.ethereum && user?.displayName) {
+				setValidCondition(window.ethereum && user?.displayName)
+			}
+		}
+	}, [user]);
 
 	function loginWithGoogle() {
 		setAuthLoading(true);
@@ -142,7 +151,9 @@ export default function Home() {
 						</p>
 					)}
 
-					{window?.ethereum! && user?.displayName ? (
+					{
+
+					validCondition ? (
 						<p className="col-lg-10 fs-4">
 							<ConnectWallet
 								modalTitle="Conecte sua carteira"
