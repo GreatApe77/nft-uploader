@@ -146,7 +146,8 @@ export default function Home() {
 						<p className="col-lg-10 fs-4">
 							<ConnectWallet
 								modalTitle="Conecte sua carteira"
-								networkSelector={}
+								modalTitleIconUrl="/great-ape-psn.png"
+								
 								welcomeScreen={{
 								
 									img: { src: "/great-ape-psn.png" },

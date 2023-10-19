@@ -18,8 +18,8 @@ export default function RootLayout({
 				
 			</head>
 			<body>
-				<Header />
-				<ThirdwebProvider >
+				<ThirdwebProvider  >
+				<Header  />
 
 				<div>{children}</div>
 				</ThirdwebProvider>
